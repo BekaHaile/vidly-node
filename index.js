@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 mongoose
-  .connect("mongodb://localhost:27017/playground")
+  .connect("mongodb://localhost:27017/mongo-excercise1")
   .then(() => {
     console.log("Connected to MongoDB...");
   })
@@ -15,6 +15,7 @@ const courseSchema = new mongoose.Schema({
   tags: [String],
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
+  price: Number,
 });
 
 const Course = mongoose.model("Course", courseSchema);
@@ -31,7 +32,7 @@ const createCourse = async () => {
   console.log(result);
 };
 
-createCourse();
+// createCourse();
 
 const getCourses = async () => {
   //Comparison Operators in MongoDB are
@@ -58,13 +59,15 @@ const getCourses = async () => {
   const pageNumber = 2;
   const pageSize = 10;
 
-  const courses = await Course
-    // find({ isPublished: true }
-    .find({ price: { $gte: 10, $lte: 20 } })
-    .skip((pageNumber - 1) * pageSize) //pagination
-    .limit(pageSize)
-    .sort({ name: 1 })
-    .select({ name: 1, tags: 1, author: 1 });
+  const courses = await Course.find({
+    isPublished: true,
+  }).or({ price: { $gte: 15 } }, { name: /.*by.*/i })
+    // .find({ price: { $gte: 10, $lte: 20 } })
+    // .skip((pageNumber - 1) * pageSize)
+    //pagination
+    // .limit(pageSize)
+    .sort({ price: -1 })
+    .select("name author price");
   console.log(courses);
 };
 
