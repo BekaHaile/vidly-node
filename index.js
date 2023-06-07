@@ -80,3 +80,44 @@ const deleteCourses = async () => {
 };
 
 // deleteCourses();
+
+//update course with id
+const updateCourse = async (id) => {
+  const course = await Course.findById(id);
+  if (!course) return;
+
+  course.isPublished = true;
+  course.author = "Another Author";
+
+  const result = await course.save();
+  console.log(result);
+}
+
+//Update first
+// const updateCourse = async (id) => {
+//   const result = await Course.update({ _id: id }, {
+//     $set: { author: "Mosh", isPublished: false }
+//   });
+//   console.log(result);
+// }
+
+// Update first and return the updated document
+// const updateCourse = async (id) => { 
+  // const course = await Course.findByIdAndUpdate(id, {
+  //   $set: { author: "Jack", isPublished: true }
+  // }, { new: true });
+  // console.log(course);
+// }
+
+// updateCourse('5a68fde3f09ad7646ddec17e');
+
+//delete course with id
+const removeCourse = async (id) => { 
+  const result = await Course.deleteOne({ _id: id }); // deleteMany for multiple
+
+  //to get the deleted document
+  // const course = await Course.findByIdAndRemove(id); 
+  console.log(result);
+}
+
+// removeCourse('5a68fde3f09ad7646ddec17e');
