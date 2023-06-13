@@ -20,7 +20,15 @@ const courseSchema = new mongoose.Schema({
     trim: true,
   },
   author: String,
-  tags: [String],
+  tags: {
+    type: Array,
+    validate: {
+      validator: function (v) {
+        return v && v.length > 0;
+      },
+      message: "A course should have at least one tag.",
+    },
+  },
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
   price: {
