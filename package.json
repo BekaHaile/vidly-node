@@ -1,5 +1,5 @@
 {
-  "name": "Vidly-node",
+  "name": "vidly-node",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "fs": "0.0.1-security",
     "joi": "^17.9.2",
-    "mongoose": "^7.3.0"
+    "mongoose": "^7.3.0",
+    "nodemon": "^2.0.22"
   }
 }
