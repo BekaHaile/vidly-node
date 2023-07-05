@@ -15,12 +15,6 @@ const genreSchema = new mongoose.Schema({
 
 const Genre = mongoose.model("Genre", genreSchema);
 
-const genres = [
-  { id: 1, name: "Action" },
-  { id: 2, name: "Horror" },
-  { id: 3, name: "Romance" },
-];
-
 router.get("/", async (req, res) => {
   const genres = await Genre.find().sort("name");
   res.send(genres);
